@@ -68,18 +68,19 @@
         var requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
         var request = new XMLHttpRequest();//创建一个HTTP请求，我们需要创建一个HTTP请求对象，通过 new 构造函数的形式
         request.open('GET', requestURL);
-        request.responseType = 'json';
+        request.responseType = 'text';
 
         request.send();//发送请求
         request.onload = function () {
-            var superHeroes = request.response;
+            var superHeroesText = request.response; // get the string from the response
+            var superHeroes = JSON.parse(superHeroesText); // convert it to an object
             populateHeader(superHeroes);
             showHeroes(superHeroes);
         }
         var myJSON = { "name": "Chris", "age": "38" };
         console.log(myJSON)
         var myString = JSON.stringify(myJSON);
-        console.log(myJSON)
+        console.log(myString)//string:{"name":"Chris","age":"38"}
     </script>
 </body>
 
