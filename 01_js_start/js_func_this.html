@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //ES5 函示內this會指向windows而非Person，因此要像PersonSolve寫法
+        function Person() {
+            // Person() 建構式將 this 定義為它自己的一個實體
+            this.age = 0;
+            console.log("Person():" + this.constructor.name);
+            console.log("Person.age():" + this.age)
+            setTimeout(function growUp() {
+                // 在非嚴格模式下, growUp() 函式把 this 定義為全域物件
+                // (因為那是 growUp()執行的所在)，
+                // 與 Person() 建構式所定義的 this 有所不同
+                this.age++;
+                console.log("Person.setTimeout():" + this.constructor.name);
+                console.log("Person.setTimeout():" + this.age)
+            }, 1000);
+        }
+        function PersonSolve() {
+            var self = this; // 有些人喜歡 `that` 而不是 `self`.
+            // 選好一種取法後始終如一
+            self.age = 0;
+            console.log("PersonSolve():" + this.constructor.name);
+            setTimeout(function growUp() {
+                // 這個 callback 參考 `self` 變數，為預期中的物件。
+                self.age++;
+                console.log("PersonSolve.setTimeout():" + self.constructor.name);
+                console.log("PersonSolve.setTimeout():" + self.age)
+
+            }, 1000);
+        }
+        var p1 = new Person();
+        var p2 = new PersonSolve();
+        //---------
+
+        //ES6 箭頭函示------------------------------
+        function Person_Arr() {
+            this.age = 0;
+            console.log("Person_Arr():" + this.constructor.name);
+            setTimeout(() => {
+                this.age++; // |this| 適切的參考了Person建構式所建立的物件
+                console.log("Person_Arr.setTimeout():" + this.constructor.name);
+                console.log("Person_Arr.setTimeout():" + this.age)
+            }, 1000);
+        }
+
+        var p3 = new Person_Arr();
+        //ES6 箭頭函示------------------------------
+
+       // OUTPUT
+        // js_func_this.html: 17 Person(): Person
+        // js_func_this.html: 31 PersonSolve(): PersonSolve
+        // js_func_this.html: 47 Person_Arr(): Person_Arr
+
+        // js_func_this.html: 23 Person.setTimeout(): Window -->發現竟然指向Window
+        // js_func_this.html: 24 Person.setTimeout(): NaN  -->內容不見！！
+        // js_func_this.html: 35 PersonSolve.setTimeout(): PersonSolve  -->wordaround解法
+        // js_func_this.html: 36 PersonSolve.setTimeout(): 1
+        // js_func_this.html: 50 Person_Arr.setTimeout(): Person_Arr -->ES6 arrow解法
+        // js_func_this.html: 51 Person_Arr.setTimeout(): 1
+    </script>
+</body>
+
+</html>
