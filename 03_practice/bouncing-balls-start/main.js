@@ -1,16 +1,13 @@
-// 设置画布
-
+// 設置畫布
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
-
 const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight;
 
-// 生成随机数的函数
+// 生成隨機數及顏色
 function random(min,max) {
   return Math.floor(Math.random()*(max-min)) + min;
 }
-
 function randomColor() {
   return 'rgb(' +
          random(0, 255) + ', ' +

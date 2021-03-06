@@ -29,8 +29,8 @@
         console.log(Add2(1, 2))//3
         console.log(Add3(1, 2))//3
         //console.log(add3(1, 2))//#1 ReferenceError: add3 is not defined
-
-
+        const addMy = new Add2(1, 2);
+        console.log("addMy" + addMy)//[addMy[object Object]]
         //ES6 宣告型態 函式名稱 = (參數) => {
         var Add4 = (A, B) => {
             return A + B;
@@ -44,6 +44,8 @@
 
         console.log("ES6:" + Add4(1, 2))//3
         console.log("ES6:" + Add5(1, 2))//3
+
+
     </script>
 </body>
 
