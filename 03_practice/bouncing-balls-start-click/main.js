@@ -27,7 +27,7 @@ function Ball(x, y, velX, velY, color, size) {
 Ball.prototype.draw = function() {
   ctx.beginPath();
   ctx.fillStyle = this.color;
-  ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI); //圓形ctx.arc(x, y, radius, startAngle, endAngle )
+  ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
   ctx.fill();
 }
 let testBall = new Ball(50, 100, 4, 4, 'blue', 10);
@@ -55,21 +55,32 @@ Ball.prototype.update = function() {
 
 let balls = [];
 
-//生成球
-while (balls.length < 25) {
+// while (balls.length < 25) {
+//     let size = random(10, 20);
+//     let ball = new Ball(
+//       // 为避免绘制错误，球至少离画布边缘球本身一倍宽度的距离
+//       random(0 + size, width - size),
+//       random(0 + size, height - size),
+//       random(-7, 7),
+//       random(-7, 7),
+//       randomColor(),
+//       size
+//     );
+//     balls.push(ball);
+//   }
+  canvas.addEventListener('click', function(e) { //改成滑鼠點擊時才生成球
     let size = random(10, 20);
     let ball = new Ball(
-      // 为避免绘制错误，球至少离画布边缘球本身一倍宽度的距离
-      random(0 + size, width - size),
-      random(0 + size, height - size),
+      e.clientX, //位置是在滑鼠點擊的地方
+      e.clientY,
       random(-7, 7),
       random(-7, 7),
       randomColor(),
       size
     );
     balls.push(ball);
-  }
-
+  });
+  
   function loop() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
     ctx.fillRect(0, 0, width, height);
