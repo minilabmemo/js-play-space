@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    //Promises寫法
+    fetch('test.json')
+        .then(response => response.json())
+        //response有json方法 
+        //https://developer.mozilla.org/zh-CN/docs/Web/API/Response
+        .then(myData => {
+            console.log(myData.name);
+        })
+        .catch(e => {
+            console.log('catch a problem: ' + e.message);
+        });
+
+    //await/aync 寫法
+    async function myFetch() {
+        let response = await fetch('test.json');
+        let myData = await response.json();
+        console.log(myData.name);
+
+    }
+
+    myFetch()
+        .catch(e => {
+            console.log('catch a problem: ' + e.message);
+        });
+
+
+    //混合用法
+    async function myFetch2() {
+        let response = await fetch('test.json');
+        return await response.json();
+    }
+
+    myFetch2().then((myData) => {
+        console.log(myData.name);
+    }).catch(e => {
+        console.log('catch a problem: ' + e.message);
+    });;
+</script>
+
+</html>
