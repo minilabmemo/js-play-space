@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 閉包的好處能把變數隱藏在裡面讓外部存取不到
+    function foo() {
+        var num = 2;
+
+        function bar() {
+            console.log(num);
+        }
+
+        return bar;
+    }
+
+    var myFoo = foo();
+
+    myFoo(); // 2
+
+    //閉包在 callback 上的應用尤其常見
+    function hello() {
+        var greeting = "Hi";
+        //非同步setTimeout函數
+        setTimeout(function () { //第一個參數可能是函數或是代碼，當該函數結束時，函數回呼你給它的函數。
+            console.log(greeting)
+        }, 3000)//第二個為推延的豪秒數  
+    }
+    hello() // 等待三秒後會出現hi
+
+    //在迴圈建立閉包：一個常見錯誤
+    //希望每秒印出12345
+    for (var i = 1; i <= 5; i++) {
+        setTimeout(function timer() {
+            console.log(i);
+        }, i * 1000); //此時 for 迴圈已跑完，i 變成 6 
+        //會錯誤變成每秒都印出6
+    }
+    //解法1每次迭代都建立一個新的函式範疇
+    for (var i = 1; i <= 5; i++) {
+        (function (j) {
+            setTimeout(function timer() {
+                console.log(j);
+            }, j * 1000);
+        })(i);
+    }
+    //解法2 使用 ES6 let
+    for (let i = 1; i <= 5; i++) {
+        setTimeout(function timer() {
+            console.log(i);
+        }, i * 1000);
+    }
+</script>
+
+</html>
