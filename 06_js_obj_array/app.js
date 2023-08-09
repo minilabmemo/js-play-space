@@ -140,3 +140,16 @@ var reformattedArray = availableLocations.map(function (obj) {
 
 console.log("availableLocations" + JSON.stringify(availableLocations));
 console.log("reformattedArray" + JSON.stringify(reformattedArray));
+
+
+//希望找出某個選項
+const datas = [
+  {"name": "cat", "animal_kind": '鳥'},
+  {"name": "dog", "animal_kind": '鳥'},
+  {"name": "snak", "animal_kind": '貓'},
+  {"name": "tesla", "animal_kind": '鳥'},
+  {"name": "bmw", "animal_kind": '鳥'}];
+
+const animalKinds = Array.from(new Set(datas.map(data => data.animal_kind)));
+
+console.log(animalKinds);

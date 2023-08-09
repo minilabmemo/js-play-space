@@ -18,6 +18,11 @@ blog:
 [[JS] javascript 新手上路與概念筆記](https://yumememooo.github.io/2021/02/20/js-start/)
 
 
+# 執行
+
+## html
+對著main.html點擊 Go alive
+
 ## 對 JS debug 對 JS
 
 - 先安裝 JavaScript Debugger (Nightly), 後續會用到 node js

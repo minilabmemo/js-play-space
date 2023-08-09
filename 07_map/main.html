@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>GeoJSON with D3.js v5</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <link rel="stylesheet" href="./taiwan.css" />
+</head>
+
+<body>
+  <div class="container" id="app">
+    <div class="taiwan-map" ref="map">
+      <div id="map">
+        <!-- <svg id="svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg> -->
+      </div>
+    </div>
+    <div class="shop-list">
+      <h1>{{ h1 }}</h1>
+      <h2>{{ h2 }}</h2>
+    </div>
+  </div>
+  <script>
+    d3.json("./taiwan.geojson").then(function (data) {
+      const width = 900;
+      const height = 900;
+
+      const svg = d3.select("#map").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("id", "svg")
+
+
+      const projection = d3.geoMercator()
+        .scale(10000) // 调整这个值来放大或缩小地图
+        .center([121, 24]) // 调整中心点的经纬度
+        .translate([width / 2, height / 2]); // 平移地图以适应 SVG 大小
+      const path = d3.geoPath(projection);
+
+
+      svg
+        .selectAll('path')
+        .data(data.features)
+        .enter().append('path')
+        .attr('d', path)
+        .attr('id', (d) => {
+          return 'city' + d.properties.COUNTYCODE;
+        })
+        .on('click', (d) => {
+          console.log(d.properties.COUNTYNAME)
+          document.querySelector('h1').textContent = d.properties.COUNTYNAME; //中文名
+          document.querySelector('h2').textContent = d.properties.COUNTYENG;//英文名
+          // 有 .active 存在，就移除 .active
+          if (document.querySelector('.active')) {
+            document.querySelector('.active').classList.remove('active');
+          }
+          // 被點擊的縣市加上 .active
+          document.getElementById('city' + d.properties.COUNTYCODE).classList.add('active');
+        });
+
+
+    });
+
+
+
+  </script>
+</body>
+
+</html>
