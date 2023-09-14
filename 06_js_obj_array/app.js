@@ -1,3 +1,67 @@
+
+
+
+//JavaScript 遍歷 Array 的四種方法：for、for-in、for-of、forEach()
+
+let array = [1, -1, 5, -0, 3, 6, 10, 28]
+
+for (var i = 0; i < array.length; i++) {
+  const item = array[i];
+  if (item < 0) {
+    continue;//繼續執行下一次的循環
+  }
+  console.log(i, item)
+
+  if (item > 5) {
+    break;//中斷“for迴圈”的意思
+  }
+
+}
+
+//1 5 -0 3 6
+
+
+//forEach是for迴圈的好讀版，但不能用continue/break,須轉換用return/flag
+
+array.forEach(function (item, i) {
+  if (item < 0) {
+    // continue;//跳躍目標不得跨越函式界限。ts(1107)
+    return //不能用continue，可以用return
+  }
+  console.log(i, item)
+  // if (item > 5) {
+  //   break;//跳躍目標不得跨越函式界限。ts(1107) 不能用，只能在外用全域變數flag來自行紀錄
+  // }
+});
+
+
+
+//for-in 迴圈:
+//for-in 特別慢應該是因為它是將 Index 當作 String 在處理
+for (const key in array) {
+  if (key < 3) {
+    continue;//繼續執行下一次的循環
+  }
+  console.log(key);
+
+
+}
+
+//for-of 迴圈:
+for (const elem of array) {
+  if (elem < 0) {
+    continue;//繼續執行下一次的循環
+  }
+  console.log(elem);
+  if (elem > 5) {
+    break;//中斷“for迴圈”的意思
+  }
+}
+
+
+
+
+//==================================
 const data = [
   {"name": "cat", "value": 17, "group": "animal", },
   {"name": "dog", "value": 6, "group": "animal", },
